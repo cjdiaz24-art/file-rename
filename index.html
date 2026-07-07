@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium File Renamer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="background-decor animate-pulse-slow"></div>
+    <div class="background-decor-2 animate-pulse-slow-reverse"></div>
+
+    <main class="app-container">
+        <header class="app-header">
+            <h1>Premium File Renamer</h1>
+            <p class="subtitle">Clean whitespace, sanitize characters, and resolve naming collisions recursively in-browser.</p>
+        </header>
+
+        <section class="info-banner" id="secure-context-banner">
+            <div class="info-icon">ℹ️</div>
+            <div class="info-content">
+                <strong>Secure Context Required:</strong> The File System Access API requires a secure context (e.g., <code>localhost</code> or HTTPS). Please run this app using a local server:
+                <pre class="code-snippet">python3 -m http.server 8000</pre>
+                Then navigate to <a href="http://localhost:8000" target="_blank">http://localhost:8000</a>.
+            </div>
+        </section>
+
+        <div class="dashboard-grid">
+            <!-- Control Card -->
+            <div class="card control-card">
+                <h2>Controls</h2>
+                <div class="control-group">
+                    <button id="btn-select-folder" class="btn btn-primary">
+                        <span class="icon">📁</span> Select Target Folder
+                    </button>
+                    <div id="selected-folder-info" class="folder-info hidden">
+                        Selected: <span id="folder-name" class="highlight">None</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="toggle-label">
+                        <span>Dry-Run Mode (Preview only)</span>
+                        <div class="switch">
+                            <input type="checkbox" id="toggle-dry-run" checked>
+                            <span class="slider"></span>
+                        </div>
+                    </label>
+                    <p class="help-text">Dry-run mode lists changes without modifying files. Uncheck this to apply real renames.</p>
+                </div>
+
+                <div class="control-group">
+                    <button id="btn-run" class="btn btn-success" disabled>
+                        <span class="icon">🔄</span> Apply Renaming
+                    </button>
+                </div>
+
+                <div class="stats-box">
+                    <div class="stat-item">
+                        <span class="stat-label">To Rename</span>
+                        <span class="stat-value" id="stat-rename-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Collisions</span>
+                        <span class="stat-value" id="stat-collision-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Unchanged</span>
+                        <span class="stat-value" id="stat-unchanged-count">0</span>
+                    </div>
+                </div>
+
+                <div class="progress-container hidden" id="progress-wrapper">
+                    <div class="progress-labels">
+                        <span id="progress-status">Processing...</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Console Log & Table Card -->
+            <div class="card logs-card">
+                <h2>Rename Preview & Log</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="preview-tab">Rename Preview</button>
+                    <button class="tab-btn" data-tab="console-tab">Console Logs</button>
+                </div>
+
+                <div class="tab-content active" id="preview-tab">
+                    <div class="table-wrapper">
+                        <table id="preview-table">
+                            <thead>
+                                <tr>
+                                    <th>Original Relative Path</th>
+                                    <th>New Relative Path</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="preview-table-body">
+                                <tr>
+                                    <td colspan="3" class="empty-table">No folder selected. Select a folder to preview file renamings.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="console-tab">
+                    <div class="console-box" id="console-output">
+                        <div class="system-msg">System initialized. Awaiting folder selection...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <p>Built with ❤️ and Modern Web APIs</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
