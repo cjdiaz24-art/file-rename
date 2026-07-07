@@ -65,3 +65,19 @@ All implementations follow the same logical rules:
 * **Apply Changes**:
   1. Toggle the **Dry-Run Mode (Preview only)** switch **OFF**.
   2. Click **Apply Renaming**. The local folder's files and subfolders will be renamed in-place.
+
+---
+
+## 🧪 Testing with the Sandbox Generator
+
+You can generate a local testing structure containing nested directories and edge-case filenames by running the helper script:
+
+```bash
+python3 generate_test_files.py
+```
+
+This creates a folder named `test_sandbox` populated with:
+* Nested folders up to 3 levels deep.
+* Files and directories containing random unsafe characters and spaces.
+* Duplicate names to verify collision handling (e.g., files that resolve to the same sanitized name).
+* Random extensions and hidden files.
